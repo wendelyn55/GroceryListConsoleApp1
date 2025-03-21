@@ -1,84 +1,88 @@
 ﻿using System;
 using System.Collections.Generic;
 
-class Program
+class GroceryListApp
 {
-    static void Main()
-    {
-        List<string> groceryList = new List<string>();
-        int choice;
+    static List<string>
+        groceryList = new List<string>
+            ();
 
+    static void Main()
+
+    {
+        int choice;
         do
         {
-            Console.WriteLine("GROCERY LIST");
-            Console.WriteLine("1. Add Item");
-            Console.WriteLine("2. View Items");
-            Console.WriteLine("3. Remove Item");
-            Console.WriteLine("4. Clear List");
-            Console.WriteLine("5. Exit");
-            Console.WriteLine("Enter your choice:");
+            ShowMenu();
+            choice = GetNumber();
+            HandleChoice(choice);
+        } while (choice != 5);
+    }
 
-            choice = Convert.ToInt32(Console.ReadLine());
+    static void ShowMenu()
+    {
+        Console.WriteLine("\nGROCERY LIST:");
+        Console.WriteLine("1. Add Item\n2. View Items\n3. Remove Item\n4. Clear List\n5. Exit");
+    }
 
-            switch (choice)
-            {
-                case 1:
-                    Console.WriteLine("Enter item to add:");
-                    string item = Console.ReadLine();
-                    groceryList.Add(item);
-                    Console.WriteLine(item + " has been added.");
-                    break;
-
-                case 2:
-                    Console.WriteLine("Your Grocery List:");
-                    if (groceryList.Count == 0)
-                    {
-                        Console.WriteLine("The list is empty.");
-                    }
-                    else
-                    {
-                        for (int i = 0; i < groceryList.Count; i++)
-                        {
-                            Console.WriteLine((i + 1) + ". " + groceryList[i]);
-                        }
-                    }
-                    break;
-
-                case 3:
-                    Console.WriteLine("Enter item number to remove:");
-                    for (int i = 0; i < groceryList.Count; i++)
-                    {
-                        Console.WriteLine((i + 1) + ". " + groceryList[i]);
-                    }
-
-                    int removeIndex = Convert.ToInt32(Console.ReadLine()) - 1;
-                    if (removeIndex >= 0 && removeIndex < groceryList.Count)
-                    {
-                        Console.WriteLine(groceryList[removeIndex] + " removed.");
-                        groceryList.RemoveAt(removeIndex);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid number.");
-                    }
-                    break;
-
-                case 4:
-                    groceryList.Clear();
-                    Console.WriteLine("Grocery list cleared.");
-                    break;
-
-                case 5:
-                    Console.WriteLine("Exiting the program...");
-                    break;
-
-                default:
-                    Console.WriteLine("Invalid choice. Please select again.");
-                    break;
-            }
-
-            Console.WriteLine(); // Blank line for readability
+    static int GetNumber()
+    {
+        while (true)
+        {
+            Console.Write("Enter your choice: ");
+            if (int.TryParse(Console.ReadLine(), out int number)) return number;
+            Console.WriteLine("Invalid input. Enter a number.");
         }
-        while (choice != 5);
+    }
+
+    static void HandleChoice(int choice)
+    {
+        switch (choice)
+        {
+            case 1: AddItem(); break;
+            case 2: ShowList(); break;
+            case 3: RemoveItem(); break;
+            case 4: ClearList(); break;
+            case 5: Console.WriteLine("Goodbye!"); break;
+            default: Console.WriteLine("Invalid choice. Try again."); break;
+        }
+    }
+
+    static void AddItem()
+    {
+        Console.Write("Enter item: ");
+        string item = Console.ReadLine().Trim();
+        if (!string.IsNullOrEmpty(item))
+        {
+            groceryList.Add(item);
+            Console.WriteLine($"'{item}' added.");
+        }
+        else Console.WriteLine("Item cannot be empty.");
+    }
+
+    static void ShowList()
+    {
+        Console.WriteLine("\nYour Grocery List:");
+        if (groceryList.Count == 0) Console.WriteLine("(Empty)");
+        else for (int i = 0; i < groceryList.Count; i++) Console.WriteLine($"{i + 1}. {groceryList[i]}");
+    }
+
+    static void RemoveItem()
+    {
+        if (groceryList.Count == 0) { Console.WriteLine("List is empty."); return; }
+        ShowList();
+        int index = GetNumber() - 1;
+        if (index >= 0 && index < groceryList.Count)
+        {
+            Console.WriteLine($"'{groceryList[index]}' removed.");
+            groceryList.RemoveAt(index);
+        }
+        else Console.WriteLine("Invalid number.");
+    }
+
+    static void ClearList()
+    {
+        groceryList.Clear();
+        Console.WriteLine("List cleared.");
     }
 }
