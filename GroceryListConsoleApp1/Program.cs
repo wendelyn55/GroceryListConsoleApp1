@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using GroceryList.BusinessDataLogic;
 
-class GroceryListApp
+public class GroceryListApp
 {
     static List<string>
         groceryList = new List<string>
@@ -39,12 +40,24 @@ class GroceryListApp
     {
         switch (choice)
         {
-            case 1: AddItem(); break;
-            case 2: ShowList(); break;
-            case 3: RemoveItem(); break;
-            case 4: ClearList(); break;
-            case 5: Console.WriteLine("Goodbye!"); break;
-            default: Console.WriteLine("Invalid choice. Try again."); break;
+            case 1: 
+                AddItem(); 
+                break;
+            case 2:
+                ShowList();
+                break;
+            case 3:
+                RemoveItem();
+                break;
+            case 4:
+                ClearList();
+                break;
+            case 5:
+                Console.WriteLine("Goodbye!");
+                break;
+            default: 
+                Console.WriteLine("Invalid choice. Try again.");
+                break;
         }
     }
 
@@ -52,7 +65,7 @@ class GroceryListApp
     {
         Console.Write("Enter item: ");
         string item = Console.ReadLine().Trim();
-        if (!string.IsNullOrEmpty(item))
+        if (!BusinessDataLogic.AddItem(item))
         {
             groceryList.Add(item);
             Console.WriteLine($"'{item}' added.");
@@ -63,26 +76,40 @@ class GroceryListApp
     static void ShowList()
     {
         Console.WriteLine("\nYour Grocery List:");
-        if (groceryList.Count == 0) Console.WriteLine("(Empty)");
-        else for (int i = 0; i < groceryList.Count; i++) Console.WriteLine($"{i + 1}. {groceryList[i]}");
+        var items = BusinessDataLogic.GetItems();
+        if (items.Count == 0)
+        {
+            Console.WriteLine("(Empty)");
+        }
+        else
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {items[i]}");
+            }
+        }
     }
+    
 
     static void RemoveItem()
     {
-        if (groceryList.Count == 0) { Console.WriteLine("List is empty."); return; }
-        ShowList();
-        int index = GetNumber() - 1;
-        if (index >= 0 && index < groceryList.Count)
+        Console.Write("Enter item to remove: ");
+        string itemToRemove = Console.ReadLine();
+
+        if (BusinessDataLogic.RemoveItem(itemToRemove)) 
         {
-            Console.WriteLine($"'{groceryList[index]}' removed.");
-            groceryList.RemoveAt(index);
+            Console.WriteLine($"'{itemToRemove}' removed.");
         }
-        else Console.WriteLine("Invalid number.");
+        else
+        {
+            Console.WriteLine($"'{itemToRemove}' is not in the list.");
+        }
     }
+}
 
     static void ClearList()
     {
-        groceryList.Clear();
+        BusinessDataLogic.ClearList();
         Console.WriteLine("List cleared.");
     }
 }
