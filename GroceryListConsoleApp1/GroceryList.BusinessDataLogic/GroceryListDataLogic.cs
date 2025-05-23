@@ -12,16 +12,16 @@ namespace GroceryListDataLogic
         }
         public static void CreateDummyGroceryList()
         {
-            groceryList.Add("Apples");
-            groceryList.Add("Bananas");
-            groceryList.Add("Carrots");
             groceryList.Add("Milk");
+            groceryList.Add("Bread");
             groceryList.Add("Eggs");
-            groceryList.Add("Watermelon");
-            groceryList.Add("Coke");
-            groceryList.Add("Potato");
-            groceryList.Add("Cookies");
-            groceryList.Add("Hotdogs");
+            groceryList.Add("Banana");
+            groceryList.Add("Tomatoes");
+            groceryList.Add("Chicken Breast");
+            groceryList.Add("Rice");
+            groceryList.Add("Butter");
+            groceryList.Add("Spinach");
+            groceryList.Add("Tuna");
         }
 
         // Creation and adding into the list of grocery items
