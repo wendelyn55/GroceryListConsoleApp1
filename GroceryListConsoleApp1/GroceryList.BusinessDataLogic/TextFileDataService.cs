@@ -38,5 +38,9 @@ namespace GroceryListDataLogic
             }
             return false;
         }
+        public void ClearList()
+        {
+            File.WriteAllText(filePath, string.Empty);
+        }
     }
 }

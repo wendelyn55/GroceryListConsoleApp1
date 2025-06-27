@@ -40,5 +40,10 @@ namespace GroceryListDataLogic
         {
             return new List<string>(groceryList);
         }
+
+        public void ClearList()
+        {
+            groceryList.Clear();
+        }
     }
 }

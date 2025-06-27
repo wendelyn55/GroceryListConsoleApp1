@@ -7,5 +7,6 @@ namespace GroceryListDataLogic
         List<string> GetGroceryList();
         bool AddItem(string itemToAdd);
         bool RemoveItem(string itemToRemove);
+        void ClearList();
     }
 }

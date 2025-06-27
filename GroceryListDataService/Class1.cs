@@ -1,34 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GroceryList.BusinessDataLogic
 {
-    class GroceryListService
+    public class GroceryListService
     {
-
         static List<string> groceryList = new List<string>();
+
         public GroceryListService()
         {
             CreateDummyGroceryList();
         }
 
         public void CreateDummyGroceryList()
+        {
+            groceryList.Add("Milk");
+            groceryList.Add("Bread");
+            groceryList.Add("Eggs");
+            groceryList.Add("Banana");
+            groceryList.Add("Tomatoes");
+            groceryList.Add("Chicken Breast");
+            groceryList.Add("Rice");
+            groceryList.Add("Butter");
+            groceryList.Add("Spinach");
+            groceryList.Add("Tuna");
+        }
 
-            public bool AddItem(string itemToAdd)
+        public bool AddItem(string itemToAdd)
         {
             if (!groceryList.Contains(itemToAdd))
             {
                 groceryList.Add(itemToAdd);
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         public bool RemoveItem(string itemToRemove)
@@ -38,10 +43,7 @@ namespace GroceryList.BusinessDataLogic
                 groceryList.Remove(itemToRemove);
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         public void ClearList()
@@ -55,4 +57,3 @@ namespace GroceryList.BusinessDataLogic
         }
     }
 }
-

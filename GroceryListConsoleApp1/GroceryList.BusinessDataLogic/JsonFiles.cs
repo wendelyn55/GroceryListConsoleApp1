@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 
+
 namespace GroceryListDataLogic
 {
     public class JsonFileDataLogic : IGroceryDataLogic
@@ -46,6 +47,11 @@ namespace GroceryListDataLogic
         {
             var json = JsonSerializer.Serialize(items, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(filePath, json);
+        }
+
+        public void ClearList()
+        {
+            SaveList(new List<string>());
         }
     }
 }
